@@ -1,6 +1,7 @@
 import 'package:companion/app/app.locator.dart';
 import 'package:companion/app/app.logger.dart';
 import 'package:companion/model/conversation.dart';
+import 'package:companion/model/scripture.dart';
 import 'package:companion/model/session.dart';
 import 'package:companion/model/session_conversations.dart';
 import 'package:path_provider/path_provider.dart';
@@ -86,14 +87,14 @@ class DatabaseService {
       _logger.i('session data found');
 
       final currentSession = Session.fromJson(session.first);
-      _logger.i(currentSession);
+      // _logger.i(currentSession);
 
       final conversations = await _database.query(
         _conversationTable,
         where: 'conversationId = ?',
         whereArgs: [conversationId],
       );
-      _logger.i(conversations);
+      // _logger.i(conversations);
 
       final allConversations =
           conversations.map((map) => Conversation.fromJson(map)).toList();
@@ -160,6 +161,36 @@ class DatabaseService {
     }
   }
 
+  Future<String> compareScripture(Scripture seekScripture) async {
+    try {
+      _logger.i('Fetching all sessions');
+      // Query all sessions
+      final List<Map<String, dynamic>> sessions =
+          await _database.query(_sessionTable);
+
+      _logger.i('Sessions found $sessions');
+      // Iterate over each session
+      for (final session in sessions) {
+        final Session currentSession = Session.fromJson(session);
+        _logger.i('Current session conversations $currentSession');
+        var existingScripture = Scripture(
+            book: currentSession.book,
+            chapter: currentSession.chapter,
+            verse: currentSession.verse,
+            translation: currentSession.translation,
+            language: currentSession.language);
+
+        if (existingScripture == seekScripture) {
+          return currentSession.conversationId.toString();
+        }
+      }
+      return '';
+    } catch (e) {
+      _logger.e('Error fetching sessions: $e');
+      return '';
+    }
+  }
+
   Future<SessionConversations?> updateOrAddConversation(
       String sessionId, List<Conversation> conversations) async {
     try {
@@ -175,7 +206,7 @@ class DatabaseService {
       }
 
       final currentSession = Session.fromJson(session.first);
-          _logger.i('Current session ${currentSession.title}');
+      _logger.i('Current session ${currentSession.title}');
 
       for (var conversation in conversations) {
         if (currentSession.conversationId == conversation.conversationId) {

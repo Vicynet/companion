@@ -7,7 +7,7 @@ import 'package:stacked/stacked.dart';
 late ScrollController controller;
 
 class ChatComponent extends StackedView<BibleChatViewModel> {
-  final List<Conversation> conversations;
+  final List<Conversation>? conversations;
 
   const ChatComponent({super.key, required this.conversations});
 
@@ -28,10 +28,10 @@ class ChatComponent extends StackedView<BibleChatViewModel> {
     });
     return ListView.builder(
       controller: controller,
-      itemCount: conversations.length,
+      itemCount: conversations?.length,
       itemBuilder: (context, index) {
-        final currentMessage = conversations[index];
-        final previousMessage = index > 0 ? conversations[index - 1] : null;
+        final currentMessage = conversations![index];
+        final previousMessage = index > 0 ? conversations![index - 1] : null;
         final showAvatarAndName = previousMessage == null ||
             previousMessage.role != currentMessage.role;
         return ChatBubble(

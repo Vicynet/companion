@@ -133,9 +133,7 @@ class SummaryDialog extends StackedView<BibleChatViewModel> {
             onTap: viewModel.isBusy == true
                 ? null
                 : () {
-                    viewModel
-                        .bibleChat(request.data)
-                        .then((value) => viewModel.navigateToChat());
+                    viewModel.bibleChat(request.data);
                   },
             child: Container(
               margin: const EdgeInsets.all(24),

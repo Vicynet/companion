@@ -21,10 +21,10 @@ class BookComponent extends StackedView<HomeViewModel> {
     return Column(children: [
       Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
         height: 55,
         decoration: const BoxDecoration(
-          color: kcAlternateColor,
+          color: Colors.transparent,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
@@ -37,73 +37,72 @@ class BookComponent extends StackedView<HomeViewModel> {
               ksBookComponentTitle,
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontFamily: 'Outfit',
+                  fontFamily: 'Outfit',
                   fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white),
+                  fontWeight: FontWeight.w700,
+                  color: kcDarkGreyColor),
             ),
             if (viewModel.allSessionsWithConversations!.isNotEmpty)
               GestureDetector(
                   onTap: viewModel.showHistoryDialog,
-                  child: const Icon(Icons.history, color: kcPrimaryColorLight)),
+                  child: const Icon(Icons.history, color: kcDarkGreyColor)),
           ],
         ),
       ),
-       viewModel.isBusy == true
+      viewModel.isBusy == true
           ? const LinearProgressIndicator(
               color: kcAlternateColor,
               backgroundColor: Colors.white,
               valueColor: AlwaysStoppedAnimation<Color>(kcPrimaryColor))
-          :
-      Expanded(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          decoration: const BoxDecoration(
-            color: kcBlock,
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20.0),
-              bottomRight: Radius.circular(20.0),
-            ),
-          ),
-          child: ListView.builder(
-            itemCount: items!.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                splashColor: kcAlternateColor,
-                onTap: () {
-                  viewModel.selectBook(index, items![index]);
-                },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          : Expanded(
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+                decoration: const BoxDecoration(
+                  color: kcBlock,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20.0),
+                  ),
+                ),
+                child: ListView.builder(
+                  itemCount: items!.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      splashColor: kcAlternateColor,
+                      onTap: () {
+                        viewModel.selectBook(index, items![index]);
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            items![index],
-                            style: const TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 14,
-                              color: Colors.black54,
-                              fontWeight: FontWeight.w500,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  items![index],
+                                  style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                if (viewModel.bookIndex == index) //
+                                  const Icon(Icons.check_circle_rounded,
+                                      color: kcPrimaryColor),
+                              ],
                             ),
                           ),
-                          if (viewModel.bookIndex == index) //
-                            const Icon(Icons.check_circle_rounded,
-                                color: kcPrimaryColor),
+                          if (index < items!.length - 1) const Divider(),
                         ],
                       ),
-                    ),
-                    if (index < items!.length - 1) const Divider(),
-                  ],
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        ),
-      ),
+              ),
+            ),
     ]);
   }
 

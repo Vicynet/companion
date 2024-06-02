@@ -33,7 +33,7 @@ class HistoryComponent extends StackedView<BibleChatViewModel> {
               'History',
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontFamily: 'Outfit',
+                  fontFamily: 'Outfit',
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.white),

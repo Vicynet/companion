@@ -20,7 +20,7 @@ class HomeView extends StackedView<HomeViewModel> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
-              left: 24.0, right: 24.0, top: 16.0, bottom: 24.0),
+              left: 24.0, right: 24.0, top: 0.0, bottom: 24.0),
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -29,38 +29,99 @@ class HomeView extends StackedView<HomeViewModel> {
                 verticalSpaceMedium,
                 Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
-                          width: 20,
-                          height: 70,
-                          child: Image.asset(
-                              'assets/images/companion-home-logo.png'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircleAvatar(
+                                radius: 100,
+                                backgroundColor: kcBlock,
+                                child: Icon(Icons.person_2_rounded,
+                                    color: kcDarkGreyColor),
+                              ),
+                            ),
+                            horizontalSpaceTiny,
+                            Text(
+                              'Welcome',
+                              style: TextStyle(
+                                fontFamily: 'Outfit',
+                                fontSize: 24,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
-                        horizontalSpaceTiny,
+                        Icon(
+                          Icons.settings,
+                          color: kcDarkGreyColor,
+                        )
+                      ],
+                    ),
+                    verticalSpaceLarge,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         const Text(
-                          'Companion',
+                          'Podcast',
                           style: TextStyle(
                             fontFamily: 'Outfit',
-                            fontSize: 24,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
+                        verticalSpaceTiny,
+                        GestureDetector(
+                          onTap: viewModel.showPodcastBottomsheet,
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 8.0),
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(8.0),
+                            height: 150,
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0)),
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/podcast.jpg'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            child: const Align(
+                              alignment: Alignment.bottomLeft,
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.spatial_audio_off_rounded,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      'Listen',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontFamily: 'Poppins'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                     verticalSpaceTiny,
-                    const Text(
-                      'Your everyday Bible companion',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
                   ],
                 ),
-                verticalSpaceLarge,
+                verticalSpaceTiny,
                 Expanded(
                   child: BookComponent(
                     items: books,

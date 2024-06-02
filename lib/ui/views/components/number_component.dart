@@ -30,8 +30,9 @@ class NumberComponent extends StackedView<HomeViewModel> {
         child: Text(
           item.toString(),
           style: TextStyle(
-            fontFamily: 'Poppins',
-              fontSize: 14.0, color: componentTextColor), // Adjust text size
+              fontFamily: 'Poppins',
+              fontSize: 14.0,
+              color: componentTextColor), // Adjust text size
         ),
       ),
     );

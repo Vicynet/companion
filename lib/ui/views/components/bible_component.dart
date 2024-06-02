@@ -70,8 +70,7 @@ Widget bibleComponent(HomeViewModel viewModel) {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    viewModel
-                                        .books[index],
+                                    viewModel.books[index],
                                     style: const TextStyle(
                                       fontFamily: 'Poppins',
                                       fontSize: 14,

@@ -1,12 +1,17 @@
--- Create the first table
+-- Create the session table
 CREATE TABLE session (
     sessionId TEXT PRIMARY KEY,
     conversationId TEXT UNIQUE,
     title TEXT,
+    book VARCHAR(20),
+    chapter INTEGER,
+    verse INTEGER,
+    translation TEXT,
+    language TEXT,
     timestamp DATETIME
 );
 
--- Create the second table
+-- Create the conversation table
 CREATE TABLE conversation (
     id INTEGER PRIMARY KEY,
     conversationId TEXT,

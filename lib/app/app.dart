@@ -11,6 +11,7 @@ import 'package:companion/ui/views/bible_chat/bible_chat_view.dart';
 import 'package:companion/services/database_service.dart';
 import 'package:companion/ui/dialogs/chat_history/chat_history_dialog.dart';
 import 'package:companion/ui/dialogs/bible_data/bible_data_dialog.dart';
+import 'package:companion/ui/bottom_sheets/podcast/podcast_sheet.dart';
 // @stacked-import
 
 @StackedApp(
@@ -32,6 +33,7 @@ import 'package:companion/ui/dialogs/bible_data/bible_data_dialog.dart';
   ],
   bottomsheets: [
     StackedBottomsheet(classType: BibleSheet),
+    StackedBottomsheet(classType: PodcastSheet),
 // @stacked-bottom-sheet
   ],
   dialogs: [

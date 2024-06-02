@@ -6,15 +6,15 @@
 import 'dart:async' as _i5;
 import 'dart:ui' as _i6;
 
-import 'package:companion/model/bible_query.dart' as _i11;
-import 'package:companion/model/conversation.dart' as _i13;
-import 'package:companion/model/session.dart' as _i14;
+import 'package:companion/model/bible_query.dart' as _i10;
+import 'package:companion/model/conversation.dart' as _i12;
+import 'package:companion/model/scripture.dart' as _i14;
+import 'package:companion/model/session.dart' as _i13;
 import 'package:companion/model/session_conversations.dart' as _i8;
 import 'package:companion/services/bible_data_service.dart' as _i7;
-import 'package:companion/services/database_service.dart' as _i12;
+import 'package:companion/services/database_service.dart' as _i11;
 import 'package:companion/services/gemini_service.dart' as _i9;
 import 'package:flutter/material.dart' as _i4;
-import 'package:google_generative_ai/google_generative_ai.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i3;
 import 'package:stacked_services/stacked_services.dart' as _i2;
@@ -751,6 +751,24 @@ class MockBibleDataService extends _i1.Mock implements _i7.BibleDataService {
       ) as List<String>);
 
   @override
+  Map<String, dynamic>? getPreviousVerse(
+    String? bookName,
+    int? chapterNumber,
+    int? verseNumber,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getPreviousVerse,
+          [
+            bookName,
+            chapterNumber,
+            verseNumber,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      ) as Map<String, dynamic>?);
+
+  @override
   _i5.Future<List<_i8.SessionConversations>?>
       getAllSessionsWithConversations() => (super.noSuchMethod(
             Invocation.method(
@@ -768,107 +786,12 @@ class MockBibleDataService extends _i1.Mock implements _i7.BibleDataService {
 /// See the documentation for Mockito's code generation for more information.
 class MockGeminiService extends _i1.Mock implements _i9.GeminiService {
   @override
-  _i10.GenerativeModel initializeAIModel() => (super.noSuchMethod(
-        Invocation.method(
-          #initializeAIModel,
-          [],
-        ),
-        returnValue: _i3.dummyValue<_i10.GenerativeModel>(
-          this,
-          Invocation.method(
-            #initializeAIModel,
-            [],
-          ),
-        ),
-        returnValueForMissingStub: _i3.dummyValue<_i10.GenerativeModel>(
-          this,
-          Invocation.method(
-            #initializeAIModel,
-            [],
-          ),
-        ),
-      ) as _i10.GenerativeModel);
-
-  @override
-  _i10.ChatSession initializeAIChatSession(
-    String? userQuery,
-    String? companionResponse,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #initializeAIChatSession,
-          [
-            userQuery,
-            companionResponse,
-          ],
-        ),
-        returnValue: _i3.dummyValue<_i10.ChatSession>(
-          this,
-          Invocation.method(
-            #initializeAIChatSession,
-            [
-              userQuery,
-              companionResponse,
-            ],
-          ),
-        ),
-        returnValueForMissingStub: _i3.dummyValue<_i10.ChatSession>(
-          this,
-          Invocation.method(
-            #initializeAIChatSession,
-            [
-              userQuery,
-              companionResponse,
-            ],
-          ),
-        ),
-      ) as _i10.ChatSession);
-
-  @override
   _i5.Future<_i8.SessionConversations?> bibleAIChat(
-          _i11.BibleQuery? bibleQuery) =>
+          _i10.BibleQuery? bibleQuery) =>
       (super.noSuchMethod(
         Invocation.method(
           #bibleAIChat,
           [bibleQuery],
-        ),
-        returnValue: _i5.Future<_i8.SessionConversations?>.value(),
-        returnValueForMissingStub:
-            _i5.Future<_i8.SessionConversations?>.value(),
-      ) as _i5.Future<_i8.SessionConversations?>);
-
-  @override
-  void initializeLocalSession(
-    String? sessionId,
-    String? conversationId,
-    String? title,
-    _i11.BibleQuery? bibleQuery,
-  ) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #initializeLocalSession,
-          [
-            sessionId,
-            conversationId,
-            title,
-            bibleQuery,
-          ],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i5.Future<_i8.SessionConversations?> initializeLocalConversation(
-    String? modelResponse,
-    _i11.BibleQuery? bibleQuery,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #initializeLocalConversation,
-          [
-            modelResponse,
-            bibleQuery,
-          ],
         ),
         returnValue: _i5.Future<_i8.SessionConversations?>.value(),
         returnValueForMissingStub:
@@ -894,28 +817,6 @@ class MockGeminiService extends _i1.Mock implements _i9.GeminiService {
         returnValueForMissingStub:
             _i5.Future<_i8.SessionConversations?>.value(),
       ) as _i5.Future<_i8.SessionConversations?>);
-
-  @override
-  String extractTheme(String? response) => (super.noSuchMethod(
-        Invocation.method(
-          #extractTheme,
-          [response],
-        ),
-        returnValue: _i3.dummyValue<String>(
-          this,
-          Invocation.method(
-            #extractTheme,
-            [response],
-          ),
-        ),
-        returnValueForMissingStub: _i3.dummyValue<String>(
-          this,
-          Invocation.method(
-            #extractTheme,
-            [response],
-          ),
-        ),
-      ) as String);
 
   @override
   _i5.Future<_i8.SessionConversations?> getConversations(
@@ -946,7 +847,7 @@ class MockGeminiService extends _i1.Mock implements _i9.GeminiService {
 /// A class which mocks [DatabaseService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDatabaseService extends _i1.Mock implements _i12.DatabaseService {
+class MockDatabaseService extends _i1.Mock implements _i11.DatabaseService {
   @override
   _i5.Future<void> init() => (super.noSuchMethod(
         Invocation.method(
@@ -958,7 +859,7 @@ class MockDatabaseService extends _i1.Mock implements _i12.DatabaseService {
       ) as _i5.Future<void>);
 
   @override
-  _i5.Future<void> createConversation(_i13.Conversation? conversation) =>
+  _i5.Future<void> createConversation(_i12.Conversation? conversation) =>
       (super.noSuchMethod(
         Invocation.method(
           #createConversation,
@@ -969,7 +870,7 @@ class MockDatabaseService extends _i1.Mock implements _i12.DatabaseService {
       ) as _i5.Future<void>);
 
   @override
-  _i5.Future<void> createSession(_i14.Session? session) => (super.noSuchMethod(
+  _i5.Future<void> createSession(_i13.Session? session) => (super.noSuchMethod(
         Invocation.method(
           #createSession,
           [session],
@@ -1006,9 +907,33 @@ class MockDatabaseService extends _i1.Mock implements _i12.DatabaseService {
           ) as _i5.Future<List<_i8.SessionConversations>>);
 
   @override
+  _i5.Future<String> compareScripture(_i14.Scripture? seekScripture) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #compareScripture,
+          [seekScripture],
+        ),
+        returnValue: _i5.Future<String>.value(_i3.dummyValue<String>(
+          this,
+          Invocation.method(
+            #compareScripture,
+            [seekScripture],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<String>.value(_i3.dummyValue<String>(
+          this,
+          Invocation.method(
+            #compareScripture,
+            [seekScripture],
+          ),
+        )),
+      ) as _i5.Future<String>);
+
+  @override
   _i5.Future<_i8.SessionConversations?> updateOrAddConversation(
     String? sessionId,
-    List<_i13.Conversation>? conversations,
+    List<_i12.Conversation>? conversations,
   ) =>
       (super.noSuchMethod(
         Invocation.method(

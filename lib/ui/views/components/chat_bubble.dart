@@ -39,8 +39,13 @@ class ChatBubble extends StackedView<BibleChatViewModel> {
                         width: 30,
                         height: 30,
                         child: CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/images/companion-logo.png'),
+                          radius: 100,
+                          backgroundColor: Colors.white,
+                          child: Icon(
+                            Icons.person_2_outlined,
+                            color: kcDarkGreyColor,
+                            size: 16,
+                          ),
                         ),
                       )
                     : const SizedBox(
@@ -97,12 +102,28 @@ class ChatBubble extends StackedView<BibleChatViewModel> {
                   ),
                 ),
               ),
-               GestureDetector(
-                onTap: () => viewModel.shareText(message, viewModel.sessionConversation!.session!.title ?? ''),
+              GestureDetector(
+                onTap: () => viewModel.shareText(message,
+                    viewModel.sessionConversation!.session!.title ?? ''),
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.share_rounded,
+                    color: kcMediumGrey,
+                    size: 18,
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () => viewModel.isPlaying
+                    ? viewModel.pausePlayback()
+                    : viewModel.startPlayback(message),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    viewModel.isPlaying
+                        ? Icons.pause_circle_outline_rounded
+                        : Icons.play_arrow_rounded,
                     color: kcMediumGrey,
                   ),
                 ),

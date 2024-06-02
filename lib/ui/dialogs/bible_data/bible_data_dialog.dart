@@ -21,20 +21,18 @@ class BibleDataDialog extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      backgroundColor: Colors.white,
-      child:  bibleComponent(viewModel)
-    );
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: Colors.white,
+        child: bibleComponent(viewModel));
   }
 
-    @override
+  @override
   void onViewModelReady(HomeViewModel viewModel) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-       viewModel.fetchBibleBooks();
+      viewModel.fetchBibleBooks();
     });
   }
 
   @override
-  HomeViewModel viewModelBuilder(BuildContext context) =>
-      HomeViewModel();
+  HomeViewModel viewModelBuilder(BuildContext context) => HomeViewModel();
 }

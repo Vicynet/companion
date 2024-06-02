@@ -16,8 +16,6 @@ class HomeViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _logger = getLogger('HomeViewModel');
 
-
-
   int get bookIndex => _bookIndex;
   int get chapterIndex => _chapterIndex;
   int get verseIndex => _verseIndex;
@@ -62,18 +60,33 @@ class HomeViewModel extends BaseViewModel {
   static List<SessionConversations>? _allSessionsWithConversations = [];
 
   Future<void> fetchLocalSessionsWithConversations() async {
-    _allSessionsWithConversations =
-        await _bibleDataService.getAllSessionsWithConversations();
-    rebuildUi();
+    setBusy(true);
+    try {
+      _allSessionsWithConversations =
+          await _bibleDataService.getAllSessionsWithConversations();
+      rebuildUi();
+      setBusy(false);
+    } catch (e) {
+      setBusy(false);
+      _dialogService.showDialog(
+        description: "Error fetching history",
+      );
+    }
   }
 
   void fetchBibleBooks() {
     setBusy(true);
-    _books = _bibleDataService.getBooks();
-    _logger.i(_books);
-    setBusy(false);
-
-    rebuildUi();
+    try {
+      _books = _bibleDataService.getBooks();
+      _logger.i(_books);
+      rebuildUi();
+      setBusy(false);
+    } catch (e) {
+      setBusy(false);
+      _dialogService.showDialog(
+        description: "Error fetching books",
+      );
+    }
   }
 
   void selectBook(int index, String book) {
@@ -139,6 +152,13 @@ class HomeViewModel extends BaseViewModel {
     _dialogService.showCustomDialog(
       variant: DialogType.chatHistory,
     );
+  }
+
+  void showPodcastBottomsheet() {
+    _bottomSheetService.showCustomSheet(
+        variant: BottomSheetType.podcast,
+        isScrollControlled: true,
+        ignoreSafeArea: false);
   }
 
   void navigateBack() {

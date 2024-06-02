@@ -13,8 +13,8 @@ Future<void> main() async {
   setupDialogUi();
   setupBottomSheetUi();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: kcAlternateColor, // Change to your desired color
-    ));
+    statusBarColor: kcAlternateColor,
+  ));
   runApp(const MainApp());
 }
 
