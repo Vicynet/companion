@@ -63,7 +63,6 @@ class BibleChatViewModel extends FormViewModel {
       } else {
         navigateToChat();
       }
-      // await fetchLocalSessionsWithConversations();
       setBusy(false);
     } catch (e) {
       setBusy(false);
@@ -138,96 +137,6 @@ class BibleChatViewModel extends FormViewModel {
       );
     }
   }
-
-  // void nextVerse() async {
-  //   try {
-  //     _showNextVerse = true;
-  //     setBusy(true);
-  //     var scripture = Scripture(
-  //         book: _sessionConversations?.session?.book,
-  //         chapter: _sessionConversations?.session?.chapter,
-  //         verse: _sessionConversations?.session?.verse,
-  //         translation: _sessionConversations?.session?.translation,
-  //         language: _sessionConversations?.session?.language);
-  //     _databaseService.compareScripture(scripture).then((value) async {
-  //       if (value.isNotEmpty) {
-  //         fetchLocalConversationsById(value);
-  //       } else {
-  //         _logger.i(
-  //             'Next verse Current verse ${_sessionConversations!.session!.verse}');
-  //         final nextVerse = _bibleDataService.getNextVerse(
-  //             _sessionConversations?.session?.book,
-  //             _sessionConversations?.session?.chapter,
-  //             _sessionConversations?.session?.verse);
-  //         if (nextVerse != null) {
-  //           _logger.i("nextVerse $nextVerse");
-  //           final newBibleQuery = BibleQuery(
-  //               book: nextVerse['book'],
-  //               chapter: nextVerse['chapter'],
-  //               verse: nextVerse['verse'],
-  //               translation: _sessionConversations!.session!.translation,
-  //               language: _sessionConversations!.session!.language);
-  //           // _bibleQuery = newBibleQuery;
-  //           _logger.i('Loaded Bible Query ${newBibleQuery.verse!}');
-  //           await traverseBibleChat(newBibleQuery);
-  //           _showNextVerse = false;
-  //           setBusy(false);
-  //         }
-  //       }
-  //     });
-  //   } catch (e) {
-  //     _showNextVerse = false;
-  //     setBusy(false);
-  //     _dialogService.showDialog(
-  //       description: "Error getting next verse",
-  //     );
-  //   }
-  // }
-
-  // void previousVerse() async {
-  //   try {
-  //     _showPreviousVerse = true;
-  //     setBusy(true);
-  //     var scripture = Scripture(
-  //         book: _sessionConversations?.session?.book,
-  //         chapter: _sessionConversations?.session?.chapter,
-  //         verse: _sessionConversations?.session?.verse,
-  //         translation: _sessionConversations?.session?.translation,
-  //         language: _sessionConversations?.session?.language);
-
-  //     _databaseService.compareScripture(scripture).then((value) async {
-  //       if (value.isNotEmpty) {
-  //         fetchLocalConversationsById(value);
-  //       } else {
-  //         _logger.i(
-  //             'Previous verse Current verse ${_sessionConversations!.session!.verse}');
-  //         final previousVerse = _bibleDataService.getPreviousVerse(
-  //             _sessionConversations!.session!.book!,
-  //             _sessionConversations!.session!.chapter!,
-  //             _sessionConversations!.session!.verse!);
-  //         if (previousVerse != null) {
-  //           _logger.i("previousVerse $previousVerse");
-  //           final newBibleQuery = BibleQuery(
-  //               book: previousVerse['book'],
-  //               chapter: previousVerse['chapter'],
-  //               verse: previousVerse['verse'],
-  //               translation: _sessionConversations!.session!.translation,
-  //               language: _sessionConversations!.session!.language);
-  //           // _bibleQuery = newBibleQuery;
-  //           await traverseBibleChat(newBibleQuery);
-  //           _showPreviousVerse = false;
-  //           setBusy(false);
-  //         }
-  //       }
-  //     });
-  //   } catch (e) {
-  //     _showPreviousVerse = false;
-  //     setBusy(false);
-  //     _dialogService.showDialog(
-  //       description: "Error getting previous verse",
-  //     );
-  //   }
-  // }
 
   Future<void> processVerse({
     required Function getVerse,
@@ -366,7 +275,6 @@ class BibleChatViewModel extends FormViewModel {
 
   void navigateToChat() {
     _navigationService.clearStackAndShow(Routes.bibleChatView);
-    // rebuildUi();
   }
 
   void navigateBack() {
